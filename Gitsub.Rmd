@@ -1,0 +1,21 @@
+
+
+```{r}
+library(htmltab)
+library(tidyr)
+library(stringr)
+library(magrittr)
+library(stringi)
+```
+
+```{r}
+LinkPath= "https://en.wikipedia.org/wiki/List_of_countries_by_Global_Militarization_Index"
+LinkMilitar= "/html/body/div[3]/div[3]/div[4]/div/table[2]"
+militarizacion= htmltab(doc =LinkPath, which = LinkMilitar)
+names(militarizacion)
+militarizacion$Rank=NULL
+names(militarizacion)=c("Country","GMI", "Military Expenditure", "People Index", "Heavy Weapons")
+militarizacion[,-c(1)]=lapply(militarizacion[,-c(1)], as.numeric)
+row.names(militarizacion)=militarizacion$Country
+```
+
